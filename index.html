@@ -1,86 +1,929 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="QuickConnect Hub - Instantly connect via WhatsApp, Call, SMS, Email, and Location sharing without saving numbers.">
-  <meta name="keywords" content="WhatsApp direct chat, SMS, call without saving number, quick connect, instant communication, email direct link">
-  <meta name="author" content="QuickConnect Hub">
-  <meta name="google-adsense-account" content="ca-pub-2488763930939291">
-  
-  <!-- Open Graph for SEO -->
-  <meta property="og:title" content="QuickConnect Hub - Direct WhatsApp, SMS, Call, Email">
-  <meta property="og:description" content="Send WhatsApp messages, calls, SMS, emails, and share location instantly without saving contacts.">
-  <meta property="og:url" content="https://yourdomain.com/">
-  <meta property="og:type" content="website">
-
-  <title>QuickConnect Hub - WhatsApp, Call, SMS, Email Direct</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Google Auto Ads -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2488763930939291"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Connect</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2488763930939291"
      crossorigin="anonymous"></script>
-  
-  <link rel="stylesheet" href="style.css">
+    <meta name="google-adsense-account" content="ca-pub-2488763930939291">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+            display: flex;
+            flex-direction: column; /* Allow vertical stacking for header */
+            justify-content: flex-start;
+            align-items: center; /* Center horizontally */
+            min-height: 100vh;
+            padding: 2rem 1rem; /* Add padding for mobile */
+            box-sizing: border-box;
+        }
+        .header-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px; /* Increased max width for more cards */
+            width: 100%;
+            padding: 2.5rem;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+        .card {
+            background-color: #f9fafb; /* Lighter card background */
+            border-radius: 1rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid #e5e7eb; /* Subtle border */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .icon-wrapper {
+            background-color: #edf2f7; /* Light grey for icons */
+            padding: 1rem;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 6rem; /* Larger icons */
+            height: 6rem;
+        }
+        .icon-wrapper svg {
+            width: 3.5rem; /* Icon size */
+            height: 3.5rem;
+            color: #4a5568; /* Darker grey icon color */
+        }
+        .btn-action {
+            background-color: #4CAF50; /* Green for action buttons */
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-action:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px); /* Blurred background */
+            transition: background-color 0.3s ease-in-out; /* Smooth transition for overlay */
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Max width for larger screens */
+            position: relative;
+            animation: fadeInScale 0.3s ease-out forwards; /* Simple animation */
+        }
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .input-prefix {
+            background-color: #e5e7eb;
+            color: #4b5563;
+            padding: 0.8rem 0.75rem;
+            border-radius: 0.5rem 0 0 0.5rem;
+            border: 1px solid #d1d5db;
+            border-right: none;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5; /* Ensure vertical alignment */
+        }
+        .modal-input {
+            flex-grow: 1; /* Allow input to take remaining space */
+            padding: 0.8rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0 0.5rem 0.5rem 0; /* Rounded on the right */
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .modal-input-full { /* For inputs without prefix */
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .modal-input:focus, .modal-input-full:focus {
+            outline: none;
+            border-color: #6366f1; /* Indigo focus color */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            z-index: 1; /* Bring focused input to front for border overlap */
+        }
+        .modal-textarea {
+            min-height: 100px;
+            resize: vertical; /* Allow vertical resize */
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+        }
+        .btn-submit {
+            background-color: #6366f1; /* Indigo for submit */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-submit:hover {
+            background-color: #4f46e5;
+        }
+        .btn-cancel {
+            background-color: #e5e7eb; /* Light grey for cancel */
+            color: #4b5563;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .btn-cancel:hover {
+            background-color: #d1d5db;
+        }
+        .btn-copy {
+            background-color: #10b981; /* Emerald green for copy */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-copy:hover {
+            background-color: #059669;
+        }
+        .btn-clear-fields {
+            background-color: #fca5a5; /* Red for clear fields */
+            color: #7f1d1d;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .btn-clear-fields:hover {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        /* Error message style */
+        .error-message {
+            color: #ef4444; /* Red text for error */
+            font-size: 0.875rem; /* Smaller font size */
+            margin-top: -0.25rem; /* Pull up closer to input */
+            margin-bottom: 1rem;
+            text-align: left;
+            display: none; /* Hidden by default */
+        }
+        /* Success message style */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10b981; /* Green background */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Keyframe animation for modal */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll to top button */
+        #scrollToTopBtn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 2rem; /* Place the button at the bottom */
+            right: 2rem; /* Place the button at the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: #6366f1; /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #4f46e5;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>🚀 QuickConnect Hub</h1>
-    <p>Instant WhatsApp, SMS, Call, Email & Location Sharing</p>
-  </header>
-
-  <!-- AdSense Header Banner -->
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block; text-align:center;"
-         data-ad-layout="in-article"
-         data-ad-format="fluid"
-         data-ad-client="ca-pub-2488763930939291"
-         data-ad-slot="3829694054"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-
-  <main>
-    <section>
-      <h2>Connect Instantly</h2>
-      <p>Send WhatsApp messages, calls, SMS, or emails without saving contacts.</p>
-      
-      <!-- Another In-Article Ad -->
-      <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-2488763930939291"
-             data-ad-slot="5005728673"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-    </section>
-
-    <section>
-      <h2>Our Features</h2>
-      <ul>
-        <li>📞 Quick Call</li>
-        <li>💬 Direct SMS</li>
-        <li>📧 Instant Email</li>
-        <li>🌍 Location Sharing</li>
-      </ul>
-    </section>
-  </main>
-
-  <!-- Footer Ad -->
-  <footer>
-    <p>© 2025 QuickConnect Hub - All Rights Reserved.</p>
-    <div class="ad-container">
-      <ins class="adsbygoogle"
-           style="display:block; text-align:center;"
-           data-ad-layout="in-article"
-           data-ad-format="fluid"
-           data-ad-client="ca-pub-2488763930939291"
-           data-ad-slot="3829694054"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div class="header-section">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Direct Connect Hub</h1>
+        <p class="text-lg text-gray-700">Effortlessly connect with anyone, anywhere. Send WhatsApp messages, make direct calls, or compose emails without needing to save contacts. Simplify your communication today!</p>
     </div>
-  </footer>
+
+    <div class="container">
+        <div class="card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339.4 55.6 283.4 32 224 32c-122.9 0-222 99.1-222 222 0 39.1 10.2 77.3 29.7 111L0 480l117.7-30.9c32.4 17.7 68.9 27 104.3 27 122.9 0 222-99.1 222-222 0-59.4-23.6-115.4-65.1-156.9zM224 430c-35.3 0-69.8-9.7-98.5-27.6L69.1 428.1l20.4-78.6c-19.1-29-29.6-62.9-29.6-96.5 0-98.5 80.5-179 179-179s179 80.5 179 179-80.5 179-179 179zM343.8 288.5c-1.5-2.9-6.1-5.7-12.4-8.8-6.3-3.1-37.8-18.4-43.8-20.6-6-2.2-10.3-3.3-14.5 3.3-4.2 6.6-16.3 20.6-20 24.8-3.7 4.2-7.5 4.7-14 1.2-6.5-3.5-27.3-10-52-32.2-19.1-17.5-32-34.7-35.7-41.2-3.7-6.5-.4-10.2 2.7-12.7 2.8-2.3 6.1-5.7 9.2-8.5 3.1-2.9 4.2-4.7 6.2-7.1 2-2.5 1-4.7-.5-6.6-1.5-1.9-13.8-33.5-18.9-45.9-5.1-12.4-10.3-10.7-14-10.9-3.6-.2-7.7-.2-11.8-.2-4.1 0-10.9 1.5-16.6 7.4-5.7 5.9-21.7 21.3-21.7 51.9 0 30.6 22.1 60 25.1 64.2 3 4.2 43.6 66.8 105.8 93.3 24.9 10.2 44.4 16.4 59.9 20.9 16 4.6 29.2 3.9 40.8 2.4 11.6-1.5 37.8-15.5 43.1-30.6 5.3-15.1 5.3-27.9 3.6-30.8z"/></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">WhatsApp Direct</h2>
+            <p class="text-gray-600 mb-6">Send a message without saving the number.</p>
+            <button class="btn-action" onclick="openModal('whatsapp')">Send WhatsApp</button>
+        </div>
+
+        <div class="card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M164.9 24.6c-7.7-18.6-28-28.7-47.5-26.6c-11.8 1.2-22.6 6.6-30.1 14.1L9.6 64.1C-2.9 76.5-7.7 93.1-6.4 109.3c1.7 20.9 11.6 39.5 27.1 53.2c69.9 61.9 133.3 118.3 194.5 174.4c17.5 16.5 40.5 27.2 65.7 27.2c27.5 0 52-11.1 70.1-29.2l53.9-53.9c13.4-13.4 21.6-32.9 21.1-52.6c-.3-11.7-5.1-22.7-13.4-31l-47-47c-7.9-7.9-19-12.7-30.1-12.1c-14.7 .7-27.9 7.6-36.9 19.8l-40.2 55c-6.8 9.3-16.7 15.6-27.7 17.5c-11 .7-21.8-.7-31.5-4.3c-28.2-10.2-56-25.2-81.5-45.7c-25.7-20.6-48.4-44.5-67.6-70.5c-10.5-14.3-17.1-30.8-19.1-48.5c-1.9-17.7 .8-35.5 8.1-51.1zM488 400c24.6 24.6 24.6 64.4 0 89l-32 32c-24.6 24.6-64.4 24.6-89 0l-96-96c-1.6-1.6-2.5-3.6-2.5-5.6V320c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v32c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32v64z"/></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Direct Call</h2>
+            <p class="text-gray-600 mb-6">Make a call without saving the number.</p>
+            <button class="btn-action" onclick="openModal('phone')">Make Call</button>
+        </div>
+
+        <div class="card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Direct Email</h2>
+            <p class="text-gray-600 mb-6">Send an email quickly.</p>
+            <button class="btn-action" onclick="openModal('email')">Send Email</button>
+        </div>
+
+        <div class="card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 0C14.3 0 0 14.3 0 32V256c0 17.7 14.3 32 32 32H64v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L160 352H480c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H32zM216 160c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H216zm-56 64c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H160z"/></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Direct SMS</h2>
+            <p class="text-gray-600 mb-6">Send a text message without saving the number.</p>
+            <button class="btn-action" onclick="openModal('sms')">Send SMS</button>
+        </div>
+
+        <div class="card">
+            <div class="icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Share Location Link</h2>
+            <p class="text-gray-600 mb-6">Generate a shareable Google Maps link.</p>
+            <button class="btn-action" onclick="openModal('location')">Generate Link</button>
+        </div>
+    </div>
+    
+    <ins class="adsbygoogle"
+     style="display:block; text-align:center; margin-top: 2rem; margin-bottom: 2rem;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2488763930939291"
+     data-ad-slot="3829694054"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    
+    <ins class="adsbygoogle"
+     style="display:block; margin-top: 2rem;"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-2488763930939291"
+     data-ad-slot="5005728673"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <div id="whatsappModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('whatsapp')">×</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Send WhatsApp Message</h3>
+            <label for="whatsappNumber" class="block text-gray-700 text-sm font-bold mb-2">
+                Receiver's Phone Number (with country code):
+            </label>
+            <div class="input-group">
+                <span class="input-prefix">+</span>
+                <input type="text" id="whatsappNumber" class="modal-input" placeholder="e.g., 919876543210" inputmode="numeric" pattern="[0-9]*">
+            </div>
+            <span id="whatsappNumberError" class="error-message"></span>
+
+            <label for="whatsappMessage" class="block text-gray-700 text-sm font-bold mb-2">
+                Message:
+            </label>
+            <textarea id="whatsappMessage" class="modal-input-full modal-textarea" placeholder="Your message here..."></textarea>
+            <span id="whatsappMessageError" class="error-message"></span>
+
+            <div class="modal-footer">
+                <button class="btn-clear-fields" onclick="clearWhatsAppFields()">Clear Fields</button>
+                <button class="btn-cancel" onclick="closeModal('whatsapp')">Cancel</button>
+                <button class="btn-copy" onclick="copyWhatsAppLink()">Copy Link</button>
+                <button class="btn-submit" onclick="sendWhatsApp()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="phoneModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('phone')">×</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Make a Direct Call</h3>
+            <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">
+                Receiver's Phone Number (with country code):
+            </label>
+            <div class="input-group">
+                <span class="input-prefix">+</span>
+                <input type="text" id="phoneNumber" class="modal-input" placeholder="e.g., 919876543210" inputmode="tel">
+            </div>
+            <span id="phoneNumberError" class="error-message"></span>
+            <div class="modal-footer">
+                <button class="btn-clear-fields" onclick="clearPhoneFields()">Clear Fields</button>
+                <button class="btn-cancel" onclick="closeModal('phone')">Cancel</button>
+                <button class="btn-submit" onclick="makePhoneCall()">Call</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('email')">×</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Send a Direct Email</h3>
+            <label for="emailAddress" class="block text-gray-700 text-sm font-bold mb-2">
+                Receiver's Email Address:
+            </label>
+            <input type="email" id="emailAddress" class="modal-input-full" placeholder="e.g., example@domain.com">
+            <span id="emailAddressError" class="error-message"></span>
+
+            <label for="emailSubject" class="block text-gray-700 text-sm font-bold mb-2">
+                Subject:
+            </label>
+            <input type="text" id="emailSubject" class="modal-input-full" placeholder="Your email subject">
+            <span id="emailSubjectError" class="error-message"></span>
+
+            <label for="emailBody" class="block text-gray-700 text-sm font-bold mb-2">
+                Message:
+            </label>
+            <textarea id="emailBody" class="modal-input-full modal-textarea" placeholder="Your email body..."></textarea>
+            <span id="emailBodyError" class="error-message"></span>
+
+            <div class="modal-footer">
+                <button class="btn-clear-fields" onclick="clearEmailFields()">Clear Fields</button>
+                <button class="btn-cancel" onclick="closeModal('email')">Cancel</button>
+                <button class="btn-submit" onclick="sendEmail()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="smsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('sms')">×</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Send Direct SMS</h3>
+            <label for="smsNumber" class="block text-gray-700 text-sm font-bold mb-2">
+                Receiver's Phone Number (with country code):
+            </label>
+            <div class="input-group">
+                <span class="input-prefix">+</span>
+                <input type="text" id="smsNumber" class="modal-input" placeholder="e.g., 919876543210" inputmode="numeric" pattern="[0-9]*">
+            </div>
+            <span id="smsNumberError" class="error-message"></span>
+
+            <label for="smsMessage" class="block text-gray-700 text-sm font-bold mb-2">
+                Message:
+            </label>
+            <textarea id="smsMessage" class="modal-input-full modal-textarea" placeholder="Your message here..."></textarea>
+            <span id="smsMessageError" class="error-message"></span>
+
+            <div class="modal-footer">
+                <button class="btn-clear-fields" onclick="clearSMSFields()">Clear Fields</button>
+                <button class="btn-cancel" onclick="closeModal('sms')">Cancel</button>
+                <button class="btn-submit" onclick="sendSMS()">Send SMS</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('location')">×</span>
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Generate Location Link</h3>
+            <label for="locationQuery" class="block text-gray-700 text-sm font-bold mb-2">
+                Address or Coordinates:
+            </label>
+            <input type="text" id="locationQuery" class="modal-input-full" placeholder="e.g., Eiffel Tower, Paris or 48.8584,2.2945">
+            <span id="locationQueryError" class="error-message"></span>
+
+            <label for="generatedLocationLink" class="block text-gray-700 text-sm font-bold mb-2">
+                Generated Link:
+            </label>
+            <input type="text" id="generatedLocationLink" class="modal-input-full" readonly placeholder="Link will appear here after generation">
+            <span id="generatedLocationLinkError" class="error-message"></span>
+
+            <div class="modal-footer">
+                <button class="btn-clear-fields" onclick="clearLocationFields()">Clear Fields</button>
+                <button class="btn-cancel" onclick="closeModal('location')">Cancel</button>
+                <button class="btn-copy" onclick="copyLocationLink()">Copy Link</button>
+                <button class="btn-submit" onclick="generateLocationLink()">Generate</button>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="scrollToTop()" id="scrollToTopBtn" title="Go to top">
+        ↑
+    </button>
+
+    <script>
+        /**
+         * Utility function to display an error message for a specific input field.
+         * @param {string} elementId - The ID of the span element where the error message should be displayed.
+         * @param {string} message - The error message to display.
+         */
+        function displayError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block'; // Show the error message
+            }
+        }
+
+        /**
+         * Utility function to clear an error message for a specific input field.
+         * @param {string} elementId - The ID of the span element to clear.
+         */
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none'; // Hide the error message
+            }
+        }
+
+        /**
+         * Shows a temporary success message to the user.
+         * @param {string} message - The message to display.
+         */
+        function showSuccessMessage(message) {
+            const messageBox = document.createElement('div');
+            messageBox.classList.add('success-message');
+            messageBox.textContent = message;
+            document.body.appendChild(messageBox);
+
+            setTimeout(() => {
+                messageBox.style.opacity = '1';
+            }, 10);
+
+            setTimeout(() => {
+                messageBox.style.opacity = '0';
+                messageBox.addEventListener('transitionend', () => messageBox.remove());
+            }, 3000);
+        }
+
+        /**
+         * Opens the specified modal by changing its display style and clearing any previous errors.
+         * @param {string} type - The type of modal to open ('whatsapp', 'phone', 'email', 'sms', 'location').
+         */
+        function openModal(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.style.display = 'flex'; // Use flex to center the content
+                // Clear all error messages when a modal is opened
+                clearError('whatsappNumberError');
+                clearError('whatsappMessageError');
+                clearError('phoneNumberError');
+                clearError('emailAddressError');
+                clearError('emailSubjectError');
+                clearError('emailBodyError');
+                clearError('smsNumberError');
+                clearError('smsMessageError');
+                clearError('locationQueryError');
+                clearError('generatedLocationLinkError');
+            }
+        }
+
+        /**
+         * Closes the specified modal by changing its display style back to none.
+         * Also clears input fields and error messages.
+         * @param {string} type - The type of modal to close ('whatsapp', 'phone', 'email', 'sms', 'location').
+         */
+        function closeModal(type) {
+            const modal = document.getElementById(`${type}Modal`);
+            if (modal) {
+                modal.style.display = 'none';
+                // Clear input fields when closing the modal
+                if (type === 'whatsapp') {
+                    document.getElementById('whatsappNumber').value = '';
+                    document.getElementById('whatsappMessage').value = '';
+                    clearError('whatsappNumberError');
+                    clearError('whatsappMessageError');
+                } else if (type === 'phone') {
+                    document.getElementById('phoneNumber').value = '';
+                    clearError('phoneNumberError');
+                } else if (type === 'email') {
+                    document.getElementById('emailAddress').value = '';
+                    document.getElementById('emailSubject').value = '';
+                    document.getElementById('emailBody').value = '';
+                    clearError('emailAddressError');
+                    clearError('emailSubjectError');
+                    clearError('emailBodyError');
+                } else if (type === 'sms') {
+                    document.getElementById('smsNumber').value = '';
+                    document.getElementById('smsMessage').value = '';
+                    clearError('smsNumberError');
+                    clearError('smsMessageError');
+                } else if (type === 'location') {
+                    document.getElementById('locationQuery').value = '';
+                    document.getElementById('generatedLocationLink').value = '';
+                    clearError('locationQueryError');
+                    clearError('generatedLocationLinkError');
+                }
+            }
+        }
+
+        /**
+         * Clears all input fields in the WhatsApp modal.
+         */
+        function clearWhatsAppFields() {
+            document.getElementById('whatsappNumber').value = '';
+            document.getElementById('whatsappMessage').value = '';
+            clearError('whatsappNumberError');
+            clearError('whatsappMessageError');
+        }
+
+        /**
+         * Clears all input fields in the Phone modal.
+         */
+        function clearPhoneFields() {
+            document.getElementById('phoneNumber').value = '';
+            clearError('phoneNumberError');
+        }
+
+        /**
+         * Clears all input fields in the Email modal.
+         */
+        function clearEmailFields() {
+            document.getElementById('emailAddress').value = '';
+            document.getElementById('emailSubject').value = '';
+            document.getElementById('emailBody').value = '';
+            clearError('emailAddressError');
+            clearError('emailSubjectError');
+            clearError('emailBodyError');
+        }
+
+        /**
+         * Clears all input fields in the SMS modal.
+         */
+        function clearSMSFields() {
+            document.getElementById('smsNumber').value = '';
+            document.getElementById('smsMessage').value = '';
+            clearError('smsNumberError');
+            clearError('smsMessageError');
+        }
+
+        /**
+         * Clears all input fields in the Location modal.
+         */
+        function clearLocationFields() {
+            document.getElementById('locationQuery').value = '';
+            document.getElementById('generatedLocationLink').value = '';
+            clearError('locationQueryError');
+            clearError('generatedLocationLinkError');
+        }
+
+        /**
+         * Constructs and returns the WhatsApp URL based on input.
+         * Handles validation and displays errors.
+         * @returns {string|null} The WhatsApp URL or null if validation fails.
+         */
+        function getWhatsAppUrl() {
+            const numberInput = document.getElementById('whatsappNumber');
+            const messageInput = document.getElementById('whatsappMessage');
+            const number = numberInput.value.trim();
+            const message = messageInput.value.trim();
+
+            clearError('whatsappNumberError');
+            clearError('whatsappMessageError');
+
+            if (!number) {
+                displayError('whatsappNumberError', 'Please enter a receiver\'s phone number.');
+                return null;
+            }
+
+            // WhatsApp expects number without leading '+'
+            const cleanedNumber = number.replace(/[^0-9]/g, '');
+
+            if (cleanedNumber.length < 8) {
+                displayError('whatsappNumberError', 'Please enter a valid phone number (at least 8 digits).');
+                return null;
+            }
+
+            return `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
+        }
+
+        /**
+         * Sends a WhatsApp message by opening the constructed wa.me link.
+         */
+        function sendWhatsApp() {
+            const whatsappUrl = getWhatsAppUrl();
+            if (whatsappUrl) {
+                window.open(whatsappUrl, '_blank');
+                closeModal('whatsapp');
+            }
+        }
+
+        /**
+         * Copies the generated WhatsApp link to the clipboard.
+         */
+        function copyWhatsAppLink() {
+            const whatsappUrl = getWhatsAppUrl();
+            if (whatsappUrl) {
+                // Use a temporary textarea to copy to clipboard
+                const tempInput = document.createElement('textarea');
+                tempInput.value = whatsappUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy'); // Fallback for older browsers
+                document.body.removeChild(tempInput);
+
+                showSuccessMessage('WhatsApp link copied to clipboard!');
+                // Do not close modal immediately after copy, let user decide
+            }
+        }
+
+        /**
+         * Initiates a phone call using the tel: protocol.
+         * Validates the phone number format.
+         */
+        function makePhoneCall() {
+            const numberInput = document.getElementById('phoneNumber');
+            const number = numberInput.value.trim();
+
+            clearError('phoneNumberError');
+
+            if (!number) {
+                displayError('phoneNumberError', 'Please enter a receiver\'s phone number.');
+                return;
+            }
+
+            // Allow '+' for international numbers, but clean other non-digit chars
+            const cleanedNumber = number.replace(/[^+\d]/g, '');
+
+            if (cleanedNumber.length < 8) {
+                displayError('phoneNumberError', 'Please enter a valid phone number (at least 8 digits).');
+                return;
+            }
+
+            window.location.href = `tel:${cleanedNumber}`;
+            closeModal('phone');
+        }
+
+        /**
+         * Sends an email using the mailto: protocol.
+         * Validates the email address.
+         */
+        function sendEmail() {
+            const addressInput = document.getElementById('emailAddress');
+            const subjectInput = document.getElementById('emailSubject');
+            const bodyInput = document.getElementById('emailBody');
+
+            const address = addressInput.value.trim();
+            const subject = subjectInput.value.trim();
+            const body = bodyInput.value.trim();
+
+            clearError('emailAddressError');
+            clearError('emailSubjectError');
+            clearError('emailBodyError');
+
+            if (!address) {
+                displayError('emailAddressError', 'Please enter a receiver\'s email address.');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(address)) {
+                displayError('emailAddressError', 'Please enter a valid email address.');
+                return;
+            }
+
+            const emailUrl = `mailto:${encodeURIComponent(address)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = emailUrl;
+            closeModal('email');
+        }
+
+        /**
+         * Sends an SMS message using the sms: protocol.
+         * Validates the phone number.
+         */
+        function sendSMS() {
+            const numberInput = document.getElementById('smsNumber');
+            const messageInput = document.getElementById('smsMessage');
+            const number = numberInput.value.trim();
+            const message = messageInput.value.trim();
+
+            clearError('smsNumberError');
+            clearError('smsMessageError');
+
+            if (!number) {
+                displayError('smsNumberError', 'Please enter a receiver\'s phone number.');
+                return;
+            }
+
+            const cleanedNumber = number.replace(/[^0-9]/g, ''); // SMS typically doesn't need '+', just digits
+
+            if (cleanedNumber.length < 8) {
+                displayError('smsNumberError', 'Please enter a valid phone number (at least 8 digits).');
+                return;
+            }
+
+            const smsUrl = `sms:${cleanedNumber}?body=${encodeURIComponent(message)}`;
+            window.location.href = smsUrl;
+            closeModal('sms');
+        }
+
+        /**
+         * Generates a Google Maps link based on the query (address or coordinates).
+         * Displays the link in a read-only input.
+         */
+        function generateLocationLink() {
+            const queryInput = document.getElementById('locationQuery');
+            const linkOutput = document.getElementById('generatedLocationLink');
+            const query = queryInput.value.trim();
+
+            clearError('locationQueryError');
+            clearError('generatedLocationLinkError');
+            linkOutput.value = ''; // Clear previous link
+
+            if (!query) {
+                displayError('locationQueryError', 'Please enter an address or coordinates.');
+                return;
+            }
+
+            // Corrected Google Maps URL format for searching
+            // Using 'https' for security and 'q=' for query
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+            linkOutput.value = mapsUrl;
+            showSuccessMessage('Location link generated!');
+        }
+
+        /**
+         * Copies the generated Google Maps link to the clipboard.
+         */
+        function copyLocationLink() {
+            const linkOutput = document.getElementById('generatedLocationLink');
+            const link = linkOutput.value;
+
+            if (!link) {
+                displayError('generatedLocationLinkError', 'Please generate a link first.');
+                return;
+            }
+
+            // Use the modern clipboard API if available, fallback to execCommand
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showSuccessMessage('Location link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    // Fallback to execCommand if clipboard API fails for some reason
+                    copyTextUsingExecCommand(link);
+                });
+            } else {
+                copyTextUsingExecCommand(link);
+            }
+        }
+
+        /**
+         * Fallback function to copy text to clipboard using document.execCommand.
+         * @param {string} textToCopy - The text to be copied.
+         */
+        function copyTextUsingExecCommand(textToCopy) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showSuccessMessage('Location link copied to clipboard (fallback)!');
+        }
+
+        // --- Scroll to Top Button Logic ---
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+
+        // When the user clicks on the button, scroll to the top of the document
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Close modal when clicking outside of the modal content
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                const type = modalId.replace('Modal', '');
+                closeModal(type);
+            }
+        }
+
+        // Add inputmode and pattern for numeric inputs for better mobile keyboard
+        document.addEventListener('DOMContentLoaded', () => {
+            const whatsappNumberInput = document.getElementById('whatsappNumber');
+            if (whatsappNumberInput) {
+                whatsappNumberInput.setAttribute('inputmode', 'numeric');
+                whatsappNumberInput.setAttribute('pattern', '[0-9]*');
+            }
+
+            const smsNumberInput = document.getElementById('smsNumber');
+            if (smsNumberInput) {
+                smsNumberInput.setAttribute('inputmode', 'numeric');
+                smsNumberInput.setAttribute('pattern', '[0-9]*');
+            }
+
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            if (phoneNumberInput) {
+                phoneNumberInput.setAttribute('inputmode', 'tel'); // 'tel' for phone numbers, allows '+'
+            }
+        });
+    </script>
 </body>
 </html>
