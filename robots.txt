@@ -1,6 +1,10 @@
 
+
+
 User-agent: *
 Allow: /
 
-Sitemap: https://mobiledoctor.org.in/sitemap.xml
 Sitemap: https://quickconnect.mobiledoctor.org.in/sitemap.xml
+
+# Adsense Ads.txt reference (main domain)
+Ads.txt: https://mobiledoctor.org.in/ads.txt
