@@ -1,6 +1,6 @@
+
 User-agent: *
-Disallow: /admin/
-Disallow: /config/
 Allow: /
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://mobiledoctor.org.in/sitemap.xml
+Sitemap: https://quickconnect.mobiledoctor.org.in/sitemap.xml
